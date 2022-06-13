@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/member")
 public class MemberController {
@@ -22,6 +24,22 @@ public class MemberController {
         return new ResponseEntity<>(member1, HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAll() {
+        List<Member> memberList = memberService.getAll();
+        return new ResponseEntity<>(memberList, HttpStatus.OK);
+    }
+
+    @GetMapping("/byNumber/{phoneNumber}")
+    public ResponseEntity<?> getMemberByPhone(@PathVariable String phoneNumber) {
+        Member member = memberService.getByPhoneNumber(phoneNumber);
+        if (member != null) {
+            return new ResponseEntity<>(member, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Member> getMember(@PathVariable Integer id) {
         Member member = memberService.getMember(id);
@@ -32,8 +50,25 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "test ok";
+    @PatchMapping("/{phoneNumber}")
+    public ResponseEntity<Member> partialUpdate(@PathVariable String phoneNumber) {
+        Member member = memberService.getByPhoneNumber(phoneNumber);
+        if (member != null) {
+            member.setPhoneNumber(phoneNumber);
+            Member newMember = memberService.update(member);
+            return new ResponseEntity<>(newMember, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("")
+    public ResponseEntity<Member> fullUpdate(@RequestBody Member member) {
+        Member newMember = memberService.update(member);
+        if (newMember != null){
+            return new ResponseEntity<>(newMember, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
