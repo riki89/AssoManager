@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class MemberService {
     @Autowired
     MemberDao memberDao;
-
+// Mahmood Diallo
     public Member add(Member member) {
         return memberDao.save(member);
     }
