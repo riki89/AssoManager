@@ -15,8 +15,11 @@ public class MemberController {
 
     @PostMapping()
     public ResponseEntity<?> getMember(@RequestBody Member member) {
+    	
         Member member1 = memberService.add(member);
+       // System.out.println(member.getName());
         if (member1 != null) {
+        	
             return new ResponseEntity<>(member1, HttpStatus.OK);
         } else
         return new ResponseEntity<>(member1, HttpStatus.BAD_REQUEST);
