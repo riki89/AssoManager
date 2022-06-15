@@ -15,6 +15,6 @@ public class MemberService {
     }
 
     public Member getMember(Integer id) {
-        memberDao.findById(id).get();
+        return memberDao.findById(id).get();
     }
 }
