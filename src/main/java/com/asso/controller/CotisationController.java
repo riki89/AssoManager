@@ -50,8 +50,8 @@ public class CotisationController {
         }
     }
 
-    @GetMapping("/phoneNumber")
-    public ResponseEntity<?> getByPhoneNumber(@RequestParam String phoneNumber) {
+    @GetMapping("/phoneNumber/{phoneNumber}")
+    public ResponseEntity<?> getByPhoneNumber(@PathVariable String phoneNumber) {
         List<Cotisation> cotisation = cotisationService.getByMember(phoneNumber);
         if (cotisation != null ) {
             return new ResponseEntity<>(cotisation, HttpStatus.OK);
@@ -72,7 +72,7 @@ public class CotisationController {
     }
 
     @PutMapping()
-    public ResponseEntity<?> partialUpdate(@RequestBody CotisationData cotisationData) {
+    public ResponseEntity<?> fullUpdate(@RequestBody CotisationData cotisationData) {
         Member member = memberService.getMember(cotisationData.getMember());
         if (member != null){
             Cotisation cotisation = CotisationMapper.toCotisationMapper(cotisationData, member);

@@ -31,8 +31,7 @@ public class CotisationService {
     }
 
     public List<Cotisation> getByMember(String phoneNumber) {
-        System.out.println("Phone number: "+ phoneNumber);
-        Member member = memberDao.findByPhoneNumber("641-819-1357");
+        Member member = memberDao.findByPhoneNumber(phoneNumber);
         if (member != null) {
             return cotisationDao.findByMember(member);
         } else
