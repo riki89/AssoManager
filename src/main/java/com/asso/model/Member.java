@@ -1,5 +1,6 @@
 package com.asso.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ public class Member {
     private String firstName;
     private String phoneNumber;
     private String sex;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate joinDate;
     private boolean memberCard;
 

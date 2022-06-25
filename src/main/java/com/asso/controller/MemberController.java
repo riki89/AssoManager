@@ -16,7 +16,7 @@ public class MemberController {
     private MemberService memberService;
 
     @PostMapping()
-    public ResponseEntity<?> getMember(@RequestBody Member member) {
+    public ResponseEntity<?> add(@RequestBody Member member) {
         Member member1 = memberService.add(member);
         if (member1 != null) {
             return new ResponseEntity<>(member1, HttpStatus.OK);
@@ -31,7 +31,7 @@ public class MemberController {
     }
 
     @GetMapping("/byNumber/{phoneNumber}")
-    public ResponseEntity<?> getMemberByPhone(@PathVariable String phoneNumber) {
+    public ResponseEntity<?> getByPhone(@PathVariable String phoneNumber) {
         Member member = memberService.getByPhoneNumber(phoneNumber);
         if (member != null) {
             return new ResponseEntity<>(member, HttpStatus.OK);
@@ -50,11 +50,11 @@ public class MemberController {
         }
     }
 
-    @PatchMapping("/{phoneNumber}")
-    public ResponseEntity<Member> partialUpdate(@PathVariable String phoneNumber) {
+    @PatchMapping("/{phoneNumber}/{newPhoneNumber}")
+    public ResponseEntity<Member> partialUpdate(@PathVariable String phoneNumber, @PathVariable String newPhoneNumber) {
         Member member = memberService.getByPhoneNumber(phoneNumber);
         if (member != null) {
-            member.setPhoneNumber(phoneNumber);
+            member.setPhoneNumber(newPhoneNumber);
             Member newMember = memberService.update(member);
             return new ResponseEntity<>(newMember, HttpStatus.OK);
         } else {
@@ -62,7 +62,7 @@ public class MemberController {
         }
     }
 
-    @PutMapping("")
+    @PutMapping()
     public ResponseEntity<Member> fullUpdate(@RequestBody Member member) {
         Member newMember = memberService.update(member);
         if (newMember != null){
