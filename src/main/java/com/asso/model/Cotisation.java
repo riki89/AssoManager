@@ -13,6 +13,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -28,7 +29,7 @@ public class Cotisation {
     @Max(12)
     private int month;
     @NotNull
-    @Min(0)
+    @Min(1000)
     private double amount;
     @NotNull
     private LocalDate date;

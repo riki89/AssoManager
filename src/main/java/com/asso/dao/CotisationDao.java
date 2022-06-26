@@ -3,6 +3,7 @@ package com.asso.dao;
 import com.asso.model.Cotisation;
 import com.asso.model.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -14,4 +15,5 @@ public interface CotisationDao extends JpaRepository<Cotisation, Integer> {
 
     List<Cotisation> findByDateBetween(LocalDate  startDate, LocalDate endDate);
 
+    List<Cotisation> findByDate(LocalDate date);
 }

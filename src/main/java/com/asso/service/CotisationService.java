@@ -48,4 +48,6 @@ public class CotisationService {
     public Cotisation update(Cotisation cotisation) {
         return cotisationDao.save(cotisation);
     }
+
+    public List<Cotisation> getByDate(LocalDate date) { return cotisationDao.findByDate(date); }
 }
