@@ -5,6 +5,8 @@ import com.asso.service.MemberService;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +62,7 @@ public class MemberController {
     
     
     @PutMapping("/update")
-	public ResponseEntity<?> updateMember(@RequestBody Member member)
+	public ResponseEntity<?> updateMember(@RequestBody @Valid Member member)
 	{
 		Member member2 = memberService.update(member);
 		if (member2 != null) {
@@ -69,6 +71,19 @@ public class MemberController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+    
+    @GetMapping("/total/{id}")
+    public ResponseEntity<?> getTotal(@PathVariable Integer id)
+    {
+    	Member member = memberService.getMember(id);
+    	if (member != null) {
+    		
+			return new ResponseEntity<>(member.cotisationTotale(),HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+    	
+    }
 
     @GetMapping("/test")
     public String test(){
