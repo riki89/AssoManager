@@ -2,6 +2,9 @@ package com.asso.service;
 
 import com.asso.dao.MemberDao;
 import com.asso.model.Member;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +36,16 @@ public class MemberService {
 
     public Member getByPhoneNumber(String phoneNumber) {
         return memberDao.findByPhoneNumber(phoneNumber);
+    }
+    
+    public List<Member> getAll()
+	{
+		return memberDao.findAll();
+	}
+    public Member update(Member member) {
+        return memberDao.save(member);
+    }
+    public void  delete(Integer id) {
+         memberDao.deleteById(id);
     }
 }
