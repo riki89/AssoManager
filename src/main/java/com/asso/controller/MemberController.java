@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/member")
 public class MemberController {
@@ -17,9 +19,7 @@ public class MemberController {
     private MemberService memberService;
 
     @PostMapping()
-    @GetMapping("/add")
-    public ResponseEntity<?> getMember(@RequestBody Member member) {
-    	
+    public ResponseEntity<?> addMember(@RequestBody @Valid Member member) {
         Member member1 = memberService.add(member);
         if (member1 != null) {
             return new ResponseEntity<>(member1, HttpStatus.OK);
@@ -37,27 +37,23 @@ public class MemberController {
         }
     }
     
-    @GetMapping("/List")
-    public ResponseEntity<List<Member>> getAllMember(@RequestBody Member member)
+    @GetMapping()
+    public ResponseEntity<List<Member>> getAll()
     {
-		List<Member> member2 = memberService.getAllMember();
+		List<Member> member = memberService.getAll();
 		if (member != null) {
-			 return new ResponseEntity<>(member2,HttpStatus.OK);
+			 return new ResponseEntity<>(member,HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
     }
 
-   
-    
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Member> deleteById(@PathVariable Integer id)
     {
-			memberService.deleteMember(id);
-			return new ResponseEntity<Member>(HttpStatus.OK);
-		
+        memberService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-    
     
     @PutMapping("/update")
 	public ResponseEntity<?> updateMember(@RequestBody Member member)
@@ -69,9 +65,4 @@ public class MemberController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
-    @GetMapping("/test")
-    public String test(){
-        return "test ok";
-    }
 }

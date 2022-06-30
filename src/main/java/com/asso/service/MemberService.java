@@ -21,14 +21,14 @@ public class MemberService {
         return memberDao.findById(id).get();
     }
     
-    public List<Member> getAllMember()
+    public List<Member> getAll()
 	{
 		return memberDao.findAll();
 	}
     public Member update(Member member) {
         return memberDao.save(member);
     }
-    public void  deleteMember(Integer id) {
-         memberDao.deleteById(id);;
+    public void  delete(Integer id) {
+         memberDao.deleteById(id);
     }
 }
