@@ -18,17 +18,17 @@ public class CotisationService {
 		return cotisationDao.save(cotisation);
 	}
 	
-	public Cotisation getCotisation(Integer id)
+	public Cotisation getById(Integer id)
 	{
 		return cotisationDao.findById(id).get();
 	}
 	
-	public List<Cotisation> getAllCotisation()
+	public List<Cotisation> getAll()
 	{
 		return cotisationDao.findAll();
 	}
 	
-	public void deleteCotisation(Integer id)
+	public void delete(Integer id)
 	{
 		cotisationDao.deleteById(id);
 	}

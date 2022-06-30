@@ -2,6 +2,8 @@ package com.asso.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +20,13 @@ import com.asso.model.Cotisation;
 import com.asso.service.CotisationService;
 
 @RestController
-@RequestMapping("/cotisation")
+@RequestMapping("/cotisations")
 public class CotisationController {
 	@Autowired
 	private CotisationService cotisationService;
 	// La methode du controleur qui permet d'ajouter une cotisation
-	@PostMapping("/Add")
-	public ResponseEntity<?> addCotisation(@RequestBody Cotisation cotisation)
+	@PostMapping()
+	public ResponseEntity<?> add(@Valid @RequestBody Cotisation cotisation)
 	{
 		Cotisation cotisation1 = cotisationService.add(cotisation);
 		if (cotisation1 != null) {
@@ -34,10 +36,10 @@ public class CotisationController {
 		}
 	}
 	// La methode du controleur qui permet de selectionner une cotisation à travers l'Id
-	@GetMapping("/Select/{id}")
-    public ResponseEntity<Cotisation> getCotisation(@PathVariable Integer id)
+	@GetMapping("/{id}")
+    public ResponseEntity<Cotisation> getById(@PathVariable Integer id)
     {
-		Cotisation cotisation = cotisationService.getCotisation(id);
+		Cotisation cotisation = cotisationService.getById(id);
 		if (cotisation != null) {
 			 return new ResponseEntity<>(cotisation,HttpStatus.OK);
 		}else {
@@ -45,27 +47,24 @@ public class CotisationController {
 		}
     }
 	// La methode du controleur qui permet de lister toutes les cotisations
-	@GetMapping("/Lister")
-    public ResponseEntity<List<Cotisation>> getAllCotisation(@RequestBody Cotisation cotisation)
+	@GetMapping()
+    public ResponseEntity<?> getAll()
     {
-		List<Cotisation> cotisation2 = cotisationService.getAllCotisation();
-		if (cotisation != null) {
-			 return new ResponseEntity<>(cotisation2,HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		List<Cotisation> cotisationList = cotisationService.getAll();
+		return new ResponseEntity<>(cotisationList,HttpStatus.OK);
+		
     }
 	// La methode du controleur qui permet de supprimer une cotisation
-	@DeleteMapping("/Delete/{id}")
+	@DeleteMapping("/{id}")
     public ResponseEntity<Cotisation> deleteById(@PathVariable Integer id)
     {
-			cotisationService.deleteCotisation(id);
+			cotisationService.delete(id);
 			return new ResponseEntity<Cotisation>(HttpStatus.OK);
 		
     }
 	// La methode du controleur qui permet de modifier une cotisation
-	@PutMapping("/Update")
-	public ResponseEntity<?> updateCotisation(@RequestBody Cotisation cotisation)
+	@PutMapping()
+	public ResponseEntity<?> update(@RequestBody Cotisation cotisation)
 	{
 		Cotisation cotisation2 = cotisationService.update(cotisation);
 		if (cotisation2 != null) {
