@@ -37,14 +37,7 @@ public class MemberService {
     public Member getByPhoneNumber(String phoneNumber) {
         return memberDao.findByPhoneNumber(phoneNumber);
     }
-    
-    public List<Member> getAll()
-	{
-		return memberDao.findAll();
-	}
-    public Member update(Member member) {
-        return memberDao.save(member);
-    }
+
     public void  delete(Integer id) {
          memberDao.deleteById(id);
     }

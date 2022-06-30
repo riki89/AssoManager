@@ -63,7 +63,7 @@ public class MemberController {
     public ResponseEntity<Member> deleteById(@PathVariable Integer id)
     {
         memberService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK)
+        return new ResponseEntity<>(HttpStatus.OK);
     }
    
     @PatchMapping("/{phoneNumber}/{newPhoneNumber}")
