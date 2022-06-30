@@ -1,42 +1,32 @@
-package com.asso.model;
+package com.asso.mapper;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Cotisation {
-    @Id
-    @GeneratedValue
+public class CotisationData implements Serializable {
     private Integer id;
-    @NotNull
-    @Min(0)
-    @Max(12)
     private int month;
-    @NotNull
-    @Min(1000)
     private double amount;
-    @NotNull
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
-    //OM, Wave, Cash, ...
     @NotNull
+    @Size(min = 2, max = 10)
     private String meanOfPayment;
-    //Les mois payes (exemple: Jan, Fev, Mars, ...
+    @Size(min=5, max = 10)
     private String description;
-    @ManyToOne
-    private Member member;
-
+    private int member;
 }
