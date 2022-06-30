@@ -110,17 +110,38 @@ public class MemberController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
      }
+    
      //get member by function
-
     @GetMapping("/getByFunction/{function}")
     public ResponseEntity<?> getByFunction(@PathVariable String function) {
         List<Member> memberList = memberService.getByFunction(function);
         if (memberList != null) {
             return new ResponseEntity<>(memberList, HttpStatus.OK);
-        } //else
+        }else
         return new ResponseEntity<List<Member>>(HttpStatus.NOT_FOUND);
     }
+    
     //get member by type (bureau, simple)
+    @GetMapping("/getByType/{type}")
+    public ResponseEntity<?> getByType(@PathVariable String type) {
+    	List<Member> memberList = memberService.getByType(type);
+    	if(memberList != null)
+    	{
+    		return new ResponseEntity<>(memberList, HttpStatus.OK);
+    	}else
+    	return new ResponseEntity<List<Member>>(HttpStatus.NOT_FOUND);
+    	
+    }
 
     //get members by sex
+    @GetMapping("/getBySex/{sex}")
+    public ResponseEntity<?> getBySex(@PathVariable String sex) {
+    	List<Member> memberList = memberService.getBySex(sex);
+    	if(memberList != null)
+    	{
+    		return new ResponseEntity<>(memberList, HttpStatus.OK);
+    	}else
+    	return new ResponseEntity<List<Member>>(HttpStatus.NOT_FOUND);
+    	
+    }
 }

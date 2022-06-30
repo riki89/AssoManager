@@ -1,6 +1,8 @@
 package com.asso.model;
 
 import lombok.*;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,18 +10,18 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.persistence.OneToMany;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Member implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
@@ -34,16 +36,16 @@ public class Member {
     //bureau_member or simple_member
     private String type;
     private String function;
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate joinDate;
     private boolean memberCard;
     
    // private List<RegleGroupe> regleGroups = new ArrayList<RegleGroupe>();
     //private List<Activity> activities = new ArrayList<Activity>();
-    private List<Cotisation> cotisations = new ArrayList<Cotisation>();
+   // private List<Cotisation> cotisations = new ArrayList<Cotisation>();
 
     @OneToMany
-    List<Cotisation> cotisationList = new ArrayList<>();
+    private List<Cotisation> cotisationList = new ArrayList<>();
 
     @Override
     public String toString() {

@@ -35,4 +35,12 @@ public class MemberService {
     public List<Member> getByFunction(String function) {
         return memberDao.findByFunction(function);
     }
+    
+    public List<Member> getByType(String function) {
+        return memberDao.findByType(function);
+    }
+    
+    public List<Member> getBySex(String sex) {
+        return memberDao.findBySex(sex);
+    }
 }
