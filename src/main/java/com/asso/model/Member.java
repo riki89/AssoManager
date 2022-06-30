@@ -28,6 +28,7 @@ public class Member {
     private String sex;
     //bureau_member or simple_member
     private String type;
+    private String function;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate joinDate;
     private boolean memberCard;

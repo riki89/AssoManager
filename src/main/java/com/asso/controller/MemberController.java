@@ -2,16 +2,12 @@ package com.asso.controller;
 
 import com.asso.model.Member;
 import com.asso.service.MemberService;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/member")
@@ -63,7 +59,7 @@ public class MemberController {
     public ResponseEntity<Member> deleteById(@PathVariable Integer id)
     {
         memberService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK)
+        return new ResponseEntity<>(HttpStatus.OK);
     }
    
     @PatchMapping("/{phoneNumber}/{newPhoneNumber}")
@@ -87,4 +83,17 @@ public class MemberController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
      }
+     //get member by function
+
+    @GetMapping("/getByFunction/{function}")
+    public ResponseEntity<?> getByFunction(@PathVariable String function) {
+        List<Member> memberList = memberService.getByFunction(function);
+        if (memberList != null) {
+            return new ResponseEntity<>(memberList, HttpStatus.OK);
+        } //else
+        return new ResponseEntity<List<Member>>(HttpStatus.NOT_FOUND);
+    }
+    //get member by type (bureau, simple)
+
+    //get members by sex
 }
