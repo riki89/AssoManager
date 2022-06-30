@@ -8,6 +8,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class MemberService {
     @Autowired
@@ -17,8 +20,22 @@ public class MemberService {
         return memberDao.save(member);
     }
 
+    public List<Member> getAll() {
+        return memberDao.findAll();
+    }
     public Member getMember(Integer id) {
-        return memberDao.findById(id).get();
+        Optional memberOpt = memberDao.findById(id);
+        if (memberOpt.isPresent()) {
+            return (Member) memberOpt.get();
+        } else {
+            return null;
+        }
+    }
+
+    public Member update(Member member) { return memberDao.save(member); }
+
+    public Member getByPhoneNumber(String phoneNumber) {
+        return memberDao.findByPhoneNumber(phoneNumber);
     }
     
     public List<Member> getAll()
