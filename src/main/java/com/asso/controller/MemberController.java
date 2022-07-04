@@ -2,9 +2,7 @@ package com.asso.controller;
 
 import com.asso.model.Member;
 import com.asso.service.MemberService;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-@Controller
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/members")
 public class MemberController {
     @Autowired
     private MemberService memberService;
@@ -32,31 +29,22 @@ public class MemberController {
     public ResponseEntity<List<Member>> getAll()
     {
       List<Member> member = memberService.getAll();
-      if (member != null) {
-         return new ResponseEntity<>(member,HttpStatus.OK);
-      } else {
-			  return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		  }
+      if (member != null) { return new ResponseEntity<>(member,HttpStatus.OK); }
+      else { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<Member> getMember(@PathVariable Integer id) {
         Member member = memberService.getMember(id);
-        if (member != null ) {
-            return new ResponseEntity<>(member, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        if (member != null ) { return new ResponseEntity<>(member, HttpStatus.OK); }
+        else { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
     }
 
     @GetMapping("/byNumber/{phoneNumber}")
     public ResponseEntity<?> getByPhone(@PathVariable String phoneNumber) {
         Member member = memberService.getByPhoneNumber(phoneNumber);
-        if (member != null) {
-            return new ResponseEntity<>(member, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        if (member != null) { return new ResponseEntity<>(member, HttpStatus.OK); }
+        else { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
     }
 
     @DeleteMapping("/{id}")
@@ -82,10 +70,7 @@ public class MemberController {
     public ResponseEntity<Member> fullUpdate(@RequestBody Member member) 
     {
         Member newMember = memberService.update(member);
-        if (newMember != null){
-            return new ResponseEntity<>(newMember, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        if (newMember != null){ return new ResponseEntity<>(newMember, HttpStatus.OK); }
+        else { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
      }
 }

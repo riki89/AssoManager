@@ -20,9 +20,11 @@ public class MemberService {
         return memberDao.save(member);
     }
 
-    public List<Member> getAll() {
+    public List<Member> getAll()
+    {
         return memberDao.findAll();
     }
+
     public Member getMember(Integer id) {
         Optional memberOpt = memberDao.findById(id);
         if (memberOpt.isPresent()) {
@@ -38,13 +40,6 @@ public class MemberService {
         return memberDao.findByPhoneNumber(phoneNumber);
     }
     
-    public List<Member> getAll()
-	{
-		return memberDao.findAll();
-	}
-    public Member update(Member member) {
-        return memberDao.save(member);
-    }
     public void  delete(Integer id) {
          memberDao.deleteById(id);
     }

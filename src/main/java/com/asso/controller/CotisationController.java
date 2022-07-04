@@ -108,9 +108,8 @@ public class CotisationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Cotisation> deleteById(@PathVariable Integer id)
     {
-			cotisationService.delete(id);
-			return new ResponseEntity<Cotisation>(HttpStatus.OK);
-		
+        cotisationService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
     

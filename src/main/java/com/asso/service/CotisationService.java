@@ -62,7 +62,7 @@ public class CotisationService {
     
     public List<Cotisation> getBymeanOfPayment(String meanOfPayment) 
     { 
-    	return cotisationDao.findBymeanOfPayment(meanOfPayment); 
+    	return cotisationDao.findMeanOfPayment(meanOfPayment);
     }
     
     public List<Cotisation> getBymonth(int month) 

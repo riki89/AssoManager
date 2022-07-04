@@ -22,7 +22,7 @@ public class RegleService {
 	        return regleDao.findById(id).get();
 	    }
 	    
-	    public List<RegleGroupe> getAllRegle()
+	    public List<RegleGroupe> getAll()
 		{
 			return regleDao.findAll();
 		}

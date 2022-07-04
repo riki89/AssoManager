@@ -18,18 +18,17 @@ import com.asso.model.Member;
 import com.asso.model.RegleGroupe;
 import com.asso.service.RegleService;
 
+import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/regle")
+@RequestMapping("/regles")
 public class RegleGroupeController {
 	@Autowired
     private RegleService regleService;
 
     @PostMapping()
-    @GetMapping("/add")
-    public ResponseEntity<?> getRegle(@RequestBody RegleGroupe regle) {
-    	
+    public ResponseEntity<?> add(@Valid @RequestBody RegleGroupe regle) {
     	RegleGroupe regle1 = regleService.add(regle);
         if (regle1 != null) {
             return new ResponseEntity<>(regle1, HttpStatus.OK);
@@ -37,8 +36,8 @@ public class RegleGroupeController {
         return new ResponseEntity<>(regle1, HttpStatus.BAD_REQUEST);
     }
     
-    @GetMapping("/select/{id}")
-    public ResponseEntity<RegleGroupe> getRegle(@PathVariable Integer id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<RegleGroupe> get(@PathVariable Integer id) {
     	RegleGroupe regle = regleService.getRegle(id);
         if (regle != null ) {
             return new ResponseEntity<>(regle, HttpStatus.OK);
@@ -47,27 +46,26 @@ public class RegleGroupeController {
         }
     }
     
-    @GetMapping("/List")
-    public ResponseEntity<List<RegleGroupe>> getAllRegle(@RequestBody RegleGroupe regle)
+    @GetMapping()
+    public ResponseEntity<List<RegleGroupe>> getAll()
     {
-		List<RegleGroupe> regle2 = regleService.getAllRegle();
+		List<RegleGroupe> regle = regleService.getAll();
 		if (regle != null) {
-			 return new ResponseEntity<>(regle2,HttpStatus.OK);
+			 return new ResponseEntity<>(regle,HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<RegleGroupe> deleteById(@PathVariable Integer id)
     {
-    		regleService.deleteRegle(id);
-			return new ResponseEntity<RegleGroupe>(HttpStatus.OK);
-		
+        regleService.deleteRegle(id);
+        return new ResponseEntity<RegleGroupe>(HttpStatus.OK);
     }
     
     
-    @PutMapping("/update")
-	public ResponseEntity<?> updateRegle(@RequestBody RegleGroupe regle)
+    @PutMapping()
+	public ResponseEntity<?> update(@RequestBody RegleGroupe regle)
 	{
     	RegleGroupe regle2 = regleService.update(regle);
 		if (regle2 != null) {
@@ -76,5 +74,4 @@ public class RegleGroupeController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
 }
