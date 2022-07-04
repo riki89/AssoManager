@@ -18,17 +18,17 @@ import com.asso.model.Member;
 import com.asso.model.RegleGroupe;
 import com.asso.service.RegleService;
 
+import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/regle")
+@RequestMapping("/regles")
 public class RegleGroupeController {
 	@Autowired
     private RegleService regleService;
 
     @PostMapping()
-    @GetMapping("/add")
-    public ResponseEntity<?> getRegle(@RequestBody RegleGroupe regle) {
+    public ResponseEntity<?> add(@Valid @RequestBody RegleGroupe regle) {
     	
     	RegleGroupe regle1 = regleService.add(regle);
         if (regle1 != null) {
@@ -37,9 +37,9 @@ public class RegleGroupeController {
         return new ResponseEntity<>(regle1, HttpStatus.BAD_REQUEST);
     }
     
-    @GetMapping("/select/{id}")
-    public ResponseEntity<RegleGroupe> getRegle(@PathVariable Integer id) {
-    	RegleGroupe regle = regleService.getRegle(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<RegleGroupe> get(@PathVariable Integer id) {
+    	RegleGroupe regle = regleService.get(id);
         if (regle != null ) {
             return new ResponseEntity<>(regle, HttpStatus.OK);
         } else {
@@ -47,10 +47,10 @@ public class RegleGroupeController {
         }
     }
     
-    @GetMapping("/List")
-    public ResponseEntity<List<RegleGroupe>> getAllRegle(@RequestBody RegleGroupe regle)
+    @GetMapping()
+    public ResponseEntity<List<RegleGroupe>> getAll(@RequestBody RegleGroupe regle)
     {
-		List<RegleGroupe> regle2 = regleService.getAllRegle();
+		List<RegleGroupe> regle2 = regleService.getAll();
 		if (regle != null) {
 			 return new ResponseEntity<>(regle2,HttpStatus.OK);
 		}else {
@@ -66,8 +66,8 @@ public class RegleGroupeController {
     }
     
     
-    @PutMapping("/update")
-	public ResponseEntity<?> updateRegle(@RequestBody RegleGroupe regle)
+    @PutMapping()
+	public ResponseEntity<?> update(@Valid @RequestBody RegleGroupe regle)
 	{
     	RegleGroupe regle2 = regleService.update(regle);
 		if (regle2 != null) {
@@ -76,5 +76,4 @@ public class RegleGroupeController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
 }
