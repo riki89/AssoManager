@@ -4,8 +4,10 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/association
     username: root
-    password: 
+    password: P@sser123
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true
     show-sql: true
+#server:
+#  port: 8081
