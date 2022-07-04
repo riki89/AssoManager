@@ -4,12 +4,9 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
@@ -29,8 +26,6 @@ public class Member implements Serializable {
     @NotNull
     private String lastName;
     @NotNull
-    private String lastName;
-    @NotNull
     private String firstName;
     @NotNull
 //    @Digits(integer = 9, fraction = 0, message = "Phone number should have exactly 10 characters")
@@ -38,6 +33,7 @@ public class Member implements Serializable {
     private String sex;
     //bureau_member or simple_member
     private String type;
+    @Column(name = "fonction") //car function est un  mot clef
     private String function;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate joinDate;

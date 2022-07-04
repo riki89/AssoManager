@@ -16,7 +16,7 @@ public interface CotisationDao extends JpaRepository<Cotisation, Integer>
 
     List<Cotisation> findByDate(LocalDate date);
     
-    List<Cotisation> findMeanOfPayment(String meanOfPayment);
+    List<Cotisation> findByMeanOfPayment(String meanOfPayment);
     
     List<Cotisation> findBymonth(int month);
     

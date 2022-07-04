@@ -60,9 +60,9 @@ public class CotisationService {
     	return cotisationDao.findByDate(date); 
     }
     
-    public List<Cotisation> getBymeanOfPayment(String meanOfPayment) 
+    public List<Cotisation> getByMeanOfPayment(String meanOfPayment)
     { 
-    	return cotisationDao.findMeanOfPayment(meanOfPayment);
+    	return cotisationDao.findByMeanOfPayment(meanOfPayment);
     }
     
     public List<Cotisation> getBymonth(int month) 

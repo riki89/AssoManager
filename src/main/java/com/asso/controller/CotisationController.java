@@ -147,9 +147,9 @@ public class CotisationController {
     }
     
     @GetMapping("/meanOfPayment/{meanOfPayment}")
-    public ResponseEntity<?> getBymeanOfPayment(@PathVariable String meanOfPayment) 
+    public ResponseEntity<?> getByMeanOfPayment(@PathVariable String meanOfPayment)
     {
-        List<Cotisation> cotisation = cotisationService.getBymeanOfPayment(meanOfPayment);
+        List<Cotisation> cotisation = cotisationService.getByMeanOfPayment(meanOfPayment);
         if (cotisation != null ) {
             return new ResponseEntity<>(cotisation, HttpStatus.OK);
         } else {
