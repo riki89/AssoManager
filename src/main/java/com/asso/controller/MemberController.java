@@ -7,17 +7,39 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/members")
 public class MemberController {
     @Autowired
     private MemberService memberService;
 
     @PostMapping()
-    public ResponseEntity<?> add(@RequestBody @Valid Member member) {
+    public ResponseEntity<?> add(@RequestBody Member member, ConstraintViolationException exceptions) {
+        if (exceptions != null) {
+            Map<String, Object> fieldError = new HashMap<>();
+            Set<ConstraintViolation<?>> fieldErrors= exceptions.getConstraintViolations();
+            for (ConstraintViolation cv : fieldErrors) {
+                fieldError.put(cv.getPropertyPath().toString(), cv.getMessage());
+            }
+            Map<String, Object> map = new HashMap<>();
+            map.put("isSuccess", false);
+            map.put("data", null);
+            map.put("status", HttpStatus.BAD_REQUEST);
+            map.put("fieldError", fieldError);
+            //Map with all the errors
+            return new ResponseEntity<Object>(map,HttpStatus.BAD_REQUEST);
+        }
         Member member1 = memberService.add(member);
         if (member1 != null) {
             return new ResponseEntity<>(member1, HttpStatus.OK);
@@ -63,30 +85,27 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
-    
-    @PutMapping("/update")
-	public ResponseEntity<?> updateMember(@RequestBody @Valid Member member)
-	{
-		Member member2 = memberService.update(member);
-		if (member2 != null) {
-			return new ResponseEntity<>(member,HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+    @PutMapping()
+    public ResponseEntity<Member> fullUpdate(@Valid @RequestBody Member member) {
+        Member newMember = memberService.update(member);
+        if (newMember != null){
+            return new ResponseEntity<>(newMember, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+     }
     
     @GetMapping("/total/{id}")
     public ResponseEntity<?> getTotal(@PathVariable Integer id)
     {
     	Member member = memberService.getMember(id);
-    	if (member != null) {
-    		
-			return new ResponseEntity<>(member.cotisationTotale(),HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+    	if (member != null) {		
+        return new ResponseEntity<>(member.cotisationTotale(),HttpStatus.OK);
+      } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
     }
-   
+
     @PatchMapping("/{phoneNumber}/{newPhoneNumber}")
     public ResponseEntity<Member> partialUpdate(@PathVariable String phoneNumber, @PathVariable String newPhoneNumber)
     {
@@ -99,17 +118,6 @@ public class MemberController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    
-
-    @PutMapping()
-    public ResponseEntity<Member> fullUpdate(@RequestBody Member member) {
-        Member newMember = memberService.update(member);
-        if (newMember != null){
-            return new ResponseEntity<>(newMember, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-     }
     
      //get member by function
     @GetMapping("/getByFunction/{function}")

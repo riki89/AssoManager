@@ -42,5 +42,8 @@ public class MemberService {
     
     public List<Member> getBySex(String sex) {
         return memberDao.findBySex(sex);
+
+    public void  delete(Integer id) {
+         memberDao.deleteById(id);
     }
 }
