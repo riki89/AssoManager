@@ -18,11 +18,11 @@ public class RegleService {
 	        return regleDao.save(regle);
 	    }
 
-	    public RegleGroupe getRegle(Integer id) {
+	    public RegleGroupe get(Integer id) {
 	        return regleDao.findById(id).get();
 	    }
 	    
-	    public List<RegleGroupe> getAllRegle()
+	    public List<RegleGroupe> getAll()
 		{
 			return regleDao.findAll();
 		}
