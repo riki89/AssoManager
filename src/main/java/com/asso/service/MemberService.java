@@ -46,8 +46,4 @@ public class MemberService {
         return memberDao.findBySex(sex);
 
     }
-    
-    public void  delete(Integer id) {
-         memberDao.deleteById(id);
-    }
 }
