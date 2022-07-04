@@ -11,4 +11,6 @@ public interface MemberDao extends JpaRepository<Member, Integer> {
     Member findByPhoneNumber(String phoneNumber);
 
     List<Member> findByFunction(String function);
+    List<Member> findByType(String type);
+    List<Member> findBySex(String sex);
 }

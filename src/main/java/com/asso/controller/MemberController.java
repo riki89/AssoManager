@@ -3,11 +3,12 @@ package com.asso.controller;
 import com.asso.model.Member;
 import com.asso.service.MemberService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/member")
@@ -61,9 +62,34 @@ public class MemberController {
         memberService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    
+    @PutMapping("/update")
+	public ResponseEntity<?> updateMember(@RequestBody @Valid Member member)
+	{
+		Member member2 = memberService.update(member);
+		if (member2 != null) {
+			return new ResponseEntity<>(member,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+    
+    @GetMapping("/total/{id}")
+    public ResponseEntity<?> getTotal(@PathVariable Integer id)
+    {
+    	Member member = memberService.getMember(id);
+    	if (member != null) {
+    		
+			return new ResponseEntity<>(member.cotisationTotale(),HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+    }
    
     @PatchMapping("/{phoneNumber}/{newPhoneNumber}")
-    public ResponseEntity<Member> partialUpdate(@PathVariable String phoneNumber, @PathVariable String newPhoneNumber) {
+    public ResponseEntity<Member> partialUpdate(@PathVariable String phoneNumber, @PathVariable String newPhoneNumber)
+    {
         Member member = memberService.getByPhoneNumber(phoneNumber);
         if (member != null) {
             member.setPhoneNumber(newPhoneNumber);
@@ -73,6 +99,7 @@ public class MemberController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    
 
     @PutMapping()
     public ResponseEntity<Member> fullUpdate(@RequestBody Member member) {
@@ -83,17 +110,38 @@ public class MemberController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
      }
+    
      //get member by function
-
     @GetMapping("/getByFunction/{function}")
     public ResponseEntity<?> getByFunction(@PathVariable String function) {
         List<Member> memberList = memberService.getByFunction(function);
         if (memberList != null) {
             return new ResponseEntity<>(memberList, HttpStatus.OK);
-        } //else
+        }else
         return new ResponseEntity<List<Member>>(HttpStatus.NOT_FOUND);
     }
+    
     //get member by type (bureau, simple)
+    @GetMapping("/getByType/{type}")
+    public ResponseEntity<?> getByType(@PathVariable String type) {
+    	List<Member> memberList = memberService.getByType(type);
+    	if(memberList != null)
+    	{
+    		return new ResponseEntity<>(memberList, HttpStatus.OK);
+    	}else
+    	return new ResponseEntity<List<Member>>(HttpStatus.NOT_FOUND);
+    	
+    }
 
     //get members by sex
+    @GetMapping("/getBySex/{sex}")
+    public ResponseEntity<?> getBySex(@PathVariable String sex) {
+    	List<Member> memberList = memberService.getBySex(sex);
+    	if(memberList != null)
+    	{
+    		return new ResponseEntity<>(memberList, HttpStatus.OK);
+    	}else
+    	return new ResponseEntity<List<Member>>(HttpStatus.NOT_FOUND);
+    	
+    }
 }

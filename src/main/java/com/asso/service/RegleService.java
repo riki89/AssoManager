@@ -30,6 +30,6 @@ public class RegleService {
 	        return regleDao.save(regle);
 	    }
 	    public void  deleteRegle(Integer id) {
-	    	regleDao.deleteById(id);;
+	    	regleDao.deleteById(id);
 	    }
 }
