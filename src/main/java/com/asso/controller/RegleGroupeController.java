@@ -29,6 +29,7 @@ public class RegleGroupeController {
 
     @PostMapping()
     public ResponseEntity<?> add(@Valid @RequestBody RegleGroupe regle) {
+    
     	RegleGroupe regle1 = regleService.add(regle);
         if (regle1 != null) {
             return new ResponseEntity<>(regle1, HttpStatus.OK);
@@ -38,7 +39,8 @@ public class RegleGroupeController {
     
     @GetMapping("/{id}")
     public ResponseEntity<RegleGroupe> get(@PathVariable Integer id) {
-    	RegleGroupe regle = regleService.getRegle(id);
+    
+    	RegleGroupe regle = regleService.get(id);
         if (regle != null ) {
             return new ResponseEntity<>(regle, HttpStatus.OK);
         } else {
@@ -47,15 +49,16 @@ public class RegleGroupeController {
     }
     
     @GetMapping()
-    public ResponseEntity<List<RegleGroupe>> getAll()
-    {
-		List<RegleGroupe> regle = regleService.getAll();
-		if (regle != null) {
-			 return new ResponseEntity<>(regle,HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+    public ResponseEntity<List<RegleGroupe>> getAll() {
+    
+      List<RegleGroupe> regle = regleService.getAll();
+      if (regle != null) {
+         return new ResponseEntity<>(regle,HttpStatus.OK);
+      }else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<RegleGroupe> deleteById(@PathVariable Integer id)
     {
@@ -65,13 +68,13 @@ public class RegleGroupeController {
     
     
     @PutMapping()
-	public ResponseEntity<?> update(@RequestBody RegleGroupe regle)
-	{
+	  public ResponseEntity<?> update(@Valid @RequestBody RegleGroupe regle) {
+  
     	RegleGroupe regle2 = regleService.update(regle);
-		if (regle2 != null) {
-			return new ResponseEntity<>(regle,HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+      if (regle2 != null) {
+        return new ResponseEntity<>(regle,HttpStatus.OK);
+      }else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+    }
 }

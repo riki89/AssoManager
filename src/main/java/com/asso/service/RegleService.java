@@ -18,7 +18,7 @@ public class RegleService {
 	        return regleDao.save(regle);
 	    }
 
-	    public RegleGroupe getRegle(Integer id) {
+	    public RegleGroupe get(Integer id) {
 	        return regleDao.findById(id).get();
 	    }
 	    
@@ -30,6 +30,6 @@ public class RegleService {
 	        return regleDao.save(regle);
 	    }
 	    public void  deleteRegle(Integer id) {
-	    	regleDao.deleteById(id);;
+	    	regleDao.deleteById(id);
 	    }
 }
