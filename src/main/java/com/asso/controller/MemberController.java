@@ -142,6 +142,5 @@ public class MemberController {
     		return new ResponseEntity<>(memberList, HttpStatus.OK);
     	}else
     	return new ResponseEntity<List<Member>>(HttpStatus.NOT_FOUND);
-    	
     }
 }

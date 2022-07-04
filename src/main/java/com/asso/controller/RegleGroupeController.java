@@ -67,7 +67,7 @@ public class RegleGroupeController {
     
     
     @PutMapping()
-	public ResponseEntity<?> updateRegle(@Valid @RequestBody RegleGroupe regle)
+	public ResponseEntity<?> update(@Valid @RequestBody RegleGroupe regle)
 	{
     	RegleGroupe regle2 = regleService.update(regle);
 		if (regle2 != null) {
