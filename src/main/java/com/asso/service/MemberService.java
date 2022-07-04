@@ -20,7 +20,7 @@ public class MemberService {
         return memberDao.save(member);
     }
 
-    public List<Member> getAll() {
+    public List<Member> getAll1() {
         return memberDao.findAll();
     }
     public Member getMember(Integer id) {
@@ -32,7 +32,7 @@ public class MemberService {
         }
     }
 
-    public Member update(Member member) { return memberDao.save(member); }
+    public Member update1(Member member) { return memberDao.save(member); }
 
     public Member getByPhoneNumber(String phoneNumber) {
         return memberDao.findByPhoneNumber(phoneNumber);
