@@ -16,9 +16,11 @@ public class MemberService {
         return memberDao.save(member);
     }
 
-    public List<Member> getAll() {
+    public List<Member> getAll()
+    {
         return memberDao.findAll();
     }
+
     public Member getMember(Integer id) {
         Optional memberOpt = memberDao.findById(id);
         if (memberOpt.isPresent()) {
@@ -43,6 +45,8 @@ public class MemberService {
     public List<Member> getBySex(String sex) {
         return memberDao.findBySex(sex);
 
+    }
+    
     public void  delete(Integer id) {
          memberDao.deleteById(id);
     }

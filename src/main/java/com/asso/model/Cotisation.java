@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -34,7 +35,7 @@ public class Cotisation {
     //OM, Wave, Cash, ...
     @NotNull
     private String meanOfPayment;
-    //Les mois payes (exemple: Jan, Fev, Mars, ...
+    //Les mois payes (exemple: Jan, Fev, Mars, ...)
     private String description;
     @ManyToOne
     private Member member;

@@ -1,15 +1,14 @@
 package com.asso.service;
 
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.asso.dao.CotisationDao;
 import com.asso.dao.MemberDao;
 import com.asso.model.Cotisation;
 import com.asso.model.Member;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.List;
 
 @Service
 public class CotisationService {
@@ -30,7 +29,8 @@ public class CotisationService {
         return cotisationDao.findById(id).get();
     }
 
-    public List<Cotisation> getByMember(String phoneNumber) {
+    public List<Cotisation> getByMember(String phoneNumber) 
+    {
         Member member = memberDao.findByPhoneNumber(phoneNumber);
         if (member != null) {
             return cotisationDao.findByMember(member);
@@ -38,16 +38,41 @@ public class CotisationService {
         {
             return Collections.emptyList();
         }
-
     }
+    
+    public void delete(Integer id)
+	{
+		cotisationDao.deleteById(id);
+	}
 
-    public List<Cotisation> getByDateBetween(LocalDate startDate, LocalDate endDate) {
+    public List<Cotisation> getByDateBetween(LocalDate startDate, LocalDate endDate) 
+    {
         return cotisationDao.findByDateBetween(startDate, endDate);
     }
 
-    public Cotisation update(Cotisation cotisation) {
+    public Cotisation update(Cotisation cotisation) 
+    {
         return cotisationDao.save(cotisation);
     }
 
-    public List<Cotisation> getByDate(LocalDate date) { return cotisationDao.findByDate(date); }
+    public List<Cotisation> getByDate(LocalDate date) 
+    { 
+    	return cotisationDao.findByDate(date); 
+    }
+    
+    public List<Cotisation> getBymeanOfPayment(String meanOfPayment) 
+    { 
+    	return cotisationDao.findMeanOfPayment(meanOfPayment);
+    }
+    
+    public List<Cotisation> getBymonth(int month) 
+    { 
+    	return cotisationDao.findBymonth(month); 
+    }
+    
+    
+    public List<Cotisation> getByamount(double amount) 
+    { 
+    	return cotisationDao.findByamount(amount); 
+    }
 }

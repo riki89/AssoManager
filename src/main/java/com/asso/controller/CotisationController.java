@@ -1,23 +1,33 @@
 package com.asso.controller;
 
-import com.asso.mapper.CotisationData;
-import com.asso.mapper.CotisationMapper;
-import com.asso.model.Cotisation;
-import com.asso.model.Member;
-import com.asso.service.CotisationService;
-import com.asso.service.MemberService;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import com.asso.model.Cotisation;
+import com.asso.model.Member;
+import com.asso.service.CotisationService;
+import com.asso.service.MemberService;
+import com.asso.mapper.CotisationData;
+import com.asso.mapper.CotisationMapper;
 import java.time.LocalDate;
-import java.util.List;
 
+@Controller
 @RestController
 @RequestMapping("/cotisations")
 public class CotisationController {
@@ -56,7 +66,8 @@ public class CotisationController {
     }
 
     @GetMapping("/phoneNumber/{phoneNumber}")
-    public ResponseEntity<?> getByPhoneNumber(@PathVariable String phoneNumber) {
+    public ResponseEntity<?> getByPhoneNumber(@PathVariable String phoneNumber) 
+    {
         List<Cotisation> cotisation = cotisationService.getByMember(phoneNumber);
         if (cotisation != null ) {
             return new ResponseEntity<>(cotisation, HttpStatus.OK);
@@ -77,7 +88,8 @@ public class CotisationController {
     }
 
     @PutMapping()
-    public ResponseEntity<?> fullUpdate(@RequestBody CotisationData cotisationData) {
+    public ResponseEntity<?> fullUpdate(@RequestBody CotisationData cotisationData) 
+    {
         Member member = memberService.getMember(cotisationData.getMember());
         if (member != null){
             Cotisation cotisation = CotisationMapper.toCotisationMapper(cotisationData, member);
@@ -93,6 +105,14 @@ public class CotisationController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Cotisation> deleteById(@PathVariable Integer id)
+    {
+        cotisationService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    
     @GetMapping("/total/{id}")
     public ResponseEntity<?> getTotal(@PathVariable Integer id)
     {
@@ -104,7 +124,8 @@ public class CotisationController {
     }
 
     @GetMapping("/totalActivity/{date}")
-    public ResponseEntity<?> getTotalActivity(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
+    public ResponseEntity<?> getTotalActivity(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date)
+    {
         List<Cotisation> cotisationList = cotisationService.getByDate(date);
         System.out.println(cotisationList);
         double total = 0.0;
@@ -113,4 +134,49 @@ public class CotisationController {
         }
         return new ResponseEntity<>(total, HttpStatus.OK);
     }
+    
+    @GetMapping("/date/{date}")
+    public ResponseEntity<?> getByDate(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) 
+    {
+        List<Cotisation> cotisation = cotisationService.getByDate(date);
+        if (cotisation != null ) {
+            return new ResponseEntity<>(cotisation, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @GetMapping("/meanOfPayment/{meanOfPayment}")
+    public ResponseEntity<?> getBymeanOfPayment(@PathVariable String meanOfPayment) 
+    {
+        List<Cotisation> cotisation = cotisationService.getBymeanOfPayment(meanOfPayment);
+        if (cotisation != null ) {
+            return new ResponseEntity<>(cotisation, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @GetMapping("/month/{month}")
+    public ResponseEntity<?> getBymonth(@PathVariable int month) 
+    {
+        List<Cotisation> cotisation = cotisationService.getBymonth(month);
+        if (cotisation != null ) {
+            return new ResponseEntity<>(cotisation, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @GetMapping("/amount/{amount}")
+    public ResponseEntity<?> getByamount(@PathVariable double amount) 
+    {
+        List<Cotisation> cotisation = cotisationService.getByamount(amount);
+        if (cotisation != null ) {
+            return new ResponseEntity<>(cotisation, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
 }

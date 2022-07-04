@@ -51,31 +51,22 @@ public class MemberController {
     public ResponseEntity<List<Member>> getAll()
     {
       List<Member> member = memberService.getAll();
-      if (member != null) {
-         return new ResponseEntity<>(member,HttpStatus.OK);
-      } else {
-			  return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		  }
+      if (member != null) { return new ResponseEntity<>(member,HttpStatus.OK); }
+      else { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<Member> getMember(@PathVariable Integer id) {
         Member member = memberService.getMember(id);
-        if (member != null ) {
-            return new ResponseEntity<>(member, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        if (member != null ) { return new ResponseEntity<>(member, HttpStatus.OK); }
+        else { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
     }
 
     @GetMapping("/byNumber/{phoneNumber}")
     public ResponseEntity<?> getByPhone(@PathVariable String phoneNumber) {
         Member member = memberService.getByPhoneNumber(phoneNumber);
-        if (member != null) {
-            return new ResponseEntity<>(member, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        if (member != null) { return new ResponseEntity<>(member, HttpStatus.OK); }
+        else { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
     }
 
     @DeleteMapping("/{id}")

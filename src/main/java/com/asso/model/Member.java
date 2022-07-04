@@ -11,14 +11,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -55,14 +51,15 @@ public class Member implements Serializable {
     private List<Cotisation> cotisationList = new ArrayList<>();
 
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return lastName+" "+ firstName;
     }
 
-    public double cotisationTotale() {
+    public double cotisationTotale() 
+    {
         double montantTotal = 0;
         for(Cotisation c : cotisationList ) { montantTotal += c.getAmount(); }
-
         return montantTotal;
     }
 }
