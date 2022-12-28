@@ -20,7 +20,7 @@ public class ActivityController {
         return new ResponseEntity<>(activityService.getActivities(), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/type/{type}")
     public ResponseEntity<?> getByType(@PathVariable("type") String type) {
         List<Activity> activities = activityService.getBy(type);
         if (activities != null){
