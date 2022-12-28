@@ -68,16 +68,16 @@ public class MemberController {
         }
      }
     
-    @GetMapping("/total/{id}")
-    public ResponseEntity<?> getTotal(@PathVariable Integer id)
-    {
-    	Member member = memberService.getMember(id);
-    	if (member != null) {		
-        return new ResponseEntity<>(member.cotisationTotale(),HttpStatus.OK);
-      } else {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-      }
-    }
+//    @GetMapping("/total/{id}")
+//    public ResponseEntity<?> getTotal(@PathVariable Integer id)
+//    {
+//    	Member member = memberService.getMember(id);
+//    	if (member != null) {
+//        return new ResponseEntity<>(member.cotisationTotale(),HttpStatus.OK);
+//      } else {
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//      }
+//    }
 
     @PatchMapping("/{phoneNumber}/{newPhoneNumber}")
     public ResponseEntity<Member> partialUpdate(@PathVariable String phoneNumber, @PathVariable String newPhoneNumber)

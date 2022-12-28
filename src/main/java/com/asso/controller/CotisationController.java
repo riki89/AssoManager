@@ -113,15 +113,15 @@ public class CotisationController {
     }
     
     
-    @GetMapping("/total/{id}")
-    public ResponseEntity<?> getTotal(@PathVariable Integer id)
-    {
-        Member member = memberService.getMember(id);
-        if (member != null && member.getPhoneNumber() != null) {
-            member.setCotisationList(cotisationService.getByMember(member.getPhoneNumber()));
-            return new ResponseEntity<>(member.cotisationTotale(),HttpStatus.OK);
-        }else { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-    }
+//    @GetMapping("/total/{id}")
+//    public ResponseEntity<?> getTotal(@PathVariable Integer id)
+//    {
+//        Member member = memberService.getMember(id);
+//        if (member != null && member.getPhoneNumber() != null) {
+//            member.setCotisationList(cotisationService.getByMember(member.getPhoneNumber()));
+//            return new ResponseEntity<>(member.cotisationTotale(),HttpStatus.OK);
+//        }else { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
+//    }
 
     @GetMapping("/totalActivity/{date}")
     public ResponseEntity<?> getTotalActivity(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date)

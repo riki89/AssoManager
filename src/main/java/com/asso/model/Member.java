@@ -43,8 +43,8 @@ public class Member implements Serializable {
     //private List<Activity> activities = new ArrayList<Activity>();
    // private List<Cotisation> cotisations = new ArrayList<Cotisation>();
 
-    @OneToMany
-    private List<Cotisation> cotisationList = new ArrayList<>();
+//    @OneToMany
+//    private List<Cotisation> cotisationList = new ArrayList<>();
 
     @Override
     public String toString() 
@@ -52,10 +52,10 @@ public class Member implements Serializable {
         return lastName+" "+ firstName;
     }
 
-    public double cotisationTotale() 
-    {
-        double montantTotal = 0;
-        for(Cotisation c : cotisationList ) { montantTotal += c.getAmount(); }
-        return montantTotal;
-    }
+//    public double cotisationTotale()
+//    {
+//        double montantTotal = 0;
+//        for(Cotisation c : cotisationList ) { montantTotal += c.getAmount(); }
+//        return montantTotal;
+//    }
 }

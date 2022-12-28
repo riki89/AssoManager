@@ -7,14 +7,40 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/activity")
 public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
+    @GetMapping
+    public ResponseEntity<?> getActivities() {
+        return new ResponseEntity<>(activityService.getActivities(), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getByType(@PathVariable("type") String type) {
+        List<Activity> activities = activityService.getBy(type);
+        if (activities != null){
+            return new ResponseEntity<>(activities, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping()
+    public ResponseEntity<?> update(@RequestBody Activity activity) {
+        Activity act = activityService.update(activity);
+        if (act != null){
+            return new ResponseEntity<>(act, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping()
-    public ResponseEntity<?> getActivity(@RequestBody Activity activity) {
+    public ResponseEntity<?> addActivity(@RequestBody Activity activity) {
         Activity activity1 = activityService.add(activity);
         if (activity1 != null) {
             return new ResponseEntity<>(activity1, HttpStatus.OK);
