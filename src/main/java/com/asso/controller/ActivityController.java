@@ -20,14 +20,14 @@ public class ActivityController {
         return new ResponseEntity<>(activityService.getActivities(), HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<?> getByType(@PathVariable("type") String type) {
-        List<Activity> activities = activityService.getBy(type);
-        if (activities != null){
-            return new ResponseEntity<>(activities, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+//    @GetMapping
+//    public ResponseEntity<?> getByType(@PathVariable("type") String type) {
+//        List<Activity> activities = activityService.getBy(type);
+//        if (activities != null){
+//            return new ResponseEntity<>(activities, HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
 
     @PutMapping()
     public ResponseEntity<?> update(@RequestBody Activity activity) {

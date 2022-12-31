@@ -13,7 +13,4 @@ public class CompteRendu {
     private Integer id;
     private String ordreJ;
     private String resume;
-    
-    
-    
 }
